@@ -4,14 +4,12 @@ using System.Collections.Generic;
 
 namespace EmployeeLibrary
 {
-    public class EmployeeLib
+    public class Employees
     {
-       
         private Dictionary<string, Employee> employees;
-         private TreeNode<Employee> treeNode;
+        private TreeNode<Employee> treeNode;       
         
-        
-        public void Employees(string[] lines)
+        public Employees(string[] lines)
         {
             treeNode = new TreeNode<Employee>();
             employees = new Dictionary<string, Employee>();
@@ -80,34 +78,13 @@ namespace EmployeeLibrary
 
             }
 
-            foreach (KeyValuePair<string,Employee> kvp in employees)
-            {
-                if (!string.IsNullOrEmpty(kvp.Value.Manager))
-                {
-                    // check for double linking
-                    bool doubleLinked = false;
-                    foreach (Employee employee in treeNode.Traverse(kvp.Value).ToArray())
-                    {
-                        if (employee.Equals(kvp.Value.Manager))
-                        {
-                            doubleLinked = true;
-                            break;
-                        }
-                    }
-               
-                }
-               
-            }
-           
         }
-
         public long SalaryBudget(string manager)
         {
             var salaryBudget = 0;
             try
             {
-                var employeesInPath = treeNode.Traverse(employees[manager])
-                                              .GetEnumerator();
+                var employeesInPath = treeNode.Traverse(employees[manager]);
                 while (employeesInPath.MoveNext())
                 {
                     salaryBudget += employeesInPath.Current.Salary;

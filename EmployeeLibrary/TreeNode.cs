@@ -70,7 +70,6 @@ public class TreeNode<T> where T : IComparable<T>
         return _children.Remove(node);
     }
 
-
     public void Traverse(T action)
     {
         foreach (var child in _children)
