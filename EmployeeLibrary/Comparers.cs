@@ -17,7 +17,7 @@ namespace EmployeeLibrary
             if (value is short) return true;
             if (value is ushort) return true;
             if (value is int) return true;
-            if (value is uintClass1g) return true;
+            if (value is int) return true;
             if (value is float) return true;
             if (value is double) return true;
             if (value is decimal) return true;

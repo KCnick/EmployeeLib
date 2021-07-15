@@ -11,7 +11,7 @@ namespace EmployeeLibrary
          private TreeNode<Employee> treeNode;
         
         
-        public Employees(string[] lines)
+        public void Employees(string[] lines)
         {
             treeNode = new TreeNode<Employee>();
             employees = new Dictionary<string, Employee>();
@@ -80,13 +80,13 @@ namespace EmployeeLibrary
 
             }
 
-            foreach (KeyValuePair<string,Employe> kvp in employees)
+            foreach (KeyValuePair<string,Employee> kvp in employees)
             {
                 if (!string.IsNullOrEmpty(kvp.Value.Manager))
                 {
                     // check for double linking
                     bool doubleLinked = false;
-                    foreach (Employe employee in treeNode.Traverse(kvp.Value).ToArray())
+                    foreach (Employee employee in treeNode.Traverse(kvp.Value).ToArray())
                     {
                         if (employee.Equals(kvp.Value.Manager))
                         {
@@ -94,17 +94,7 @@ namespace EmployeeLibrary
                             break;
                         }
                     }
-                    // // ensure that each employee has only one manager
-                    // if (graph.IncomingEdges(kvp.Value).ToArray().Length < 1 && !doubleLinked )
-                    // {
-                    //     graph.AddEdge( employees[kvp.Value.Manager],kvp.Value);
-                    // }
-                    // else
-                    // {
-                    //     Console.WriteLine(graph.IncomingEdges(kvp.Value).ToArray().Length>=1 ?
-                    //         String.Format("Employee {0} have more than one manager",kvp.Value.Id) :
-                    //         "Double linking not allowed");
-                    // }
+               
                 }
                
             }
@@ -116,7 +106,8 @@ namespace EmployeeLibrary
             var salaryBudget = 0;
             try
             {
-                var employeesInPath = treeNode.Traverse(employees[manager]).GetEnumerator();
+                var employeesInPath = treeNode.Traverse(employees[manager])
+                                              .GetEnumerator();
                 while (employeesInPath.MoveNext())
                 {
                     salaryBudget += employeesInPath.Current.Salary;
